@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chibi generator</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="UTF-8"></script>
+    <style>
+        	canvas {
+			position: absolute;
+            top: 20%;
+            left: 22%;
+
+		}
+
+.contenitore{
+    position: absolute;
+    width:400px;
+    height: 400px;
+    top: 22%;
+    left: 25%;
+}
+.faccia{
+    position: absolute;
+    background-image: url("assets/svg/faccia-01.svg");
+    width: 400px;
+    height: 400px;
+
+}
+.occhi{
+    position: absolute;
+    background-image: url("assets/svg/occhi-0.svg");
+    width: 400px;
+    height: 400px;
+}
+.bocca{
+    position: absolute;
+    background-image: url("assets/svg/bocca-0.svg");
+    width: 400px;
+    height: 400px;
+}
+.capelli{
+    position: absolute;
+    background-image: url("assets/svg/capelli-0.svg");
+    width: 400px;
+    height: 400px;
+
+}
+.vestiti{
+    position: absolute;
+    background-image: url("assets/svg/vestiti-0.svg");
+    width: 400px;
+    height: 400px;
+}
+.altro{
+    position: absolute;
+    width: 400px;
+    height: 400px;
+}
+
+#wallpaper {
+                width:  400px;
+                height:  400px;
+}
+.layer {
+                position:absolute;
+                background-color: transparent;
+            }
+.layer img {                
+                width:100%;
+                height:100%;
+}
+
+    </style> <!-- Impostazioni Contenitore -->
+         <style>
+*{
+margin: 0%;
+padding: 0;
+box-sizing: border-box;
+font-family: Helvetica;
+}
+body {
+    min-height: 100vh;}
+.slide-bar{
+    background: rgba(235, 163, 150, 0.226);
+    width: 450px;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+   right: 0%;
+   overflow-y: auto;
+}
+.slide-bar .menu{
+width: 100%;
+margin-top: 80px;
+}
+.slide-bar .menu .item{
+position: relative;
+cursor: pointer;
+}
+.slide-bar .menu .item a{
+color: rgb(48, 41, 41);
+font-size: 25px;
+text-decoration: none;
+display: block;
+padding: 5px 30px;
+line-height: 60px;
+}
+.slide-bar .menu .item a:hover{
+    background: peachpuff;  
+    transition: 0.5 ease; 
+}
+.slide-bar .menu .item i {
+    margin-right: 15px;
+}
+.slide-bar .menu .item .sub-menu {
+    background: rgba(187, 150, 121, 0.329);
+    display: none;
+}
+.slide-bar .menu .item a .dropdown{
+  position: absolute;
+  right: 0;
+  margin: 20px;
+  transition: 0.3s ease;
+} 
+.rotate{
+    transform: rotate(90deg);
+}
+
+.sub-item{
+    position: relative;
+    width: 215px;
+    height: 210px;
+    
+}
+
+button {
+         background: none;
+         width: 220px;
+         height: 215px;
+            }
+
+
+.sub-item img {
+        width: 100%;
+         height: 100%;
+         object-fit: contain;
+}
+.sub-item2{
+    position: relative;
+    width: 0px;
+    height: 0px;
+    
+}
+
+            .linea input[type="range"] {
+                position: relative;
+        		height: 2px;
+        		appearance: none;
+        		-webkit-appearance: none;
+        		background-color: black;
+                display: block;
+                margin-top: 20px;
+                width: 86%;
+                
+        	}
+*  .linea{
+    position: relative;
+    margin-left: 45px;
+}
+.linea{
+    position: relative;
+   width:400px;
+   height: 65px;
+}
+
+
+.indice{
+    background: none;
+    margin-left: 2%;
+    margin-top: 2%;
+    font-size: 22pt;
+    width:100px;
+    height:40px;
+}
+         </style><!-- Impostazioni Interfaccia -->
+</head>
+
+
+<body>
+    <div > <button class="indice">Indice</button> </div>
+
+    <div class="contenitore"> <!-- Immagini character -->
+        <div id="wallpaper" class="layer">
+            <object id="svg_object" data="assets/svg/sfondo.svg" type="image/svg+xml"></object>  </div>   
+        <div id="faccia" class="layer faccia"> </div>
+        <div id="occhi" class="layer occhi"></div>
+        <div id="bocca" class="layer bocca"></div>
+        <div id="capelli" class="layer capelli"></div>
+        <div id="vestiti" class="layer vestiti"></div>
+        <div id="altro" class="layer altro"></div>
+    </div>
+
+
+<div class="slide-bar">
+    <div class="menu">
+        <div class="item">
+            <a class="sub-btn">
+                <i > </i>  <label for="#input-volto">Volto </label><i class="fas fa-angle-right dropdown"> </i></a>
+             <div class="sub-menu">
+          <button id="v1"><a href="#" class="sub-item"> <img src="assets/bottoni/faccia-0.png" alt=""></a></button> 
+        <button id="v2"><a href="#" class="sub-item"><img src="assets/bottoni/faccia-1.png" alt=""></a></button> 
+        <button id="v3"><a href="#" class="sub-item"><img src="assets/bottoni/faccia-2.png" alt=""></a></button> 
+         <button id="v4"><a href="#" class="sub-item"><img src="assets/bottoni/faccia-3.png" alt=""></a></button> 
+        <button id="v5"><a href="#" class="sub-item"><img src="assets/bottoni/faccia-4.png" alt=""></a> </button> 
+        <button id="v6"> <a href="#" class="sub-item"><img src="assets/bottoni/faccia-5.png" alt=""></a></button> 
+        <button id="v7"> <a href="#" class="sub-item"><img src="assets/bottoni/faccia-6.png" alt=""></a> </button> 
+            </div>
+        </div><!--viso-->
+        <div class="item"> 
+              <a class="sub-btn">
+                <i > </i>  <label for="#input-occhi">Occhi </label><i class="fas fa-angle-right dropdown"> </i></a>
+            <div  class="sub-menu">
+                <button id="v8"><a href="#" class="sub-item"> <img src="assets/bottoni/occhi-0.png" alt=""></a></button> 
+                <button id="v9"> <a href="#" class="sub-item"><img src="assets/bottoni/occhi-1.png" alt=""></a></button> 
+                    <button id="v10">  <a href="#" class="sub-item"><img src="assets/bottoni/occhi-2.png" alt=""></a></button> 
+                        <button id="v11"> <a href="#" class="sub-item"><img src="assets/bottoni/occhi-3.png" alt=""></a></button> 
+                            <button id="v12">  <a href="#" class="sub-item"><img src="assets/bottoni/occhi-4.png" alt=""></a></button> 
+                                <button id="v13">  <a href="#" class="sub-item"><img src="assets/bottoni/occhi-5.png" alt=""></a></button> 
+                                    <button id="v14">  <a href="#" class="sub-item"><img src="assets/bottoni/occhi-6.png" alt=""></a></button> 
+                                        <button id="v15"> <a href="#" class="sub-item"><img src="assets/bottoni/occhi-7.png" alt=""></a></button> 
+                                             <button id="v16"> <a href="#" class="sub-item"><img src="assets/bottoni/occhi-8.png" alt=""></a></button> 
+            </div>
+        </div><!-- occhi-->
+        <div class="item">
+            <a class="sub-btn">
+            
+                <i > </i> <label for="#input-bocca">Bocca </label><i class="fas fa-angle-right dropdown"> </i></a>
+            <div class="sub-menu">
+                <button id="v17"><a href="#" class="sub-item"><img src="assets/bottoni/bocca-0.png" alt=""></a></button> 
+                    <button id="v18"> <a href="#" class="sub-item"><img src="assets/bottoni/bocca-1.png" alt=""></a></button> 
+                        <button id="v19">  <a href="#" class="sub-item"><img src="assets/bottoni/bocca-2.png" alt=""></a></button> 
+                            <button id="v20">   <a href="#" class="sub-item"><img src="assets/bottoni/bocca-3.png" alt=""></a></button> 
+                                <button id="v21">  <a href="#" class="sub-item"><img src="assets/bottoni/bocca-4.png" alt=""></a></button> 
+                                    <button id="v22"> <a href="#" class="sub-item"><img src="assets/bottoni/bocca-5.png" alt=""></a></button> 
+                                        <button id="v23">  <a href="#" class="sub-item"><img src="assets/bottoni/bocca-6.png" alt=""></a></button> 
+          
+            </div>
+        </div><!-- bocca-->
+        <div class="item">
+            <a class="sub-btn">
+                <i > </i>  <label for="#input-vestiti">Outfit </label><i class="fas fa-angle-right dropdown"> </i></a>
+            <div class="sub-menu">
+                <button id="v24">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-0.png" alt=""></a></button> 
+                    <button id="v25">   <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-1.png" alt=""></a></button> 
+                        <button id="v26">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-2.png" alt=""></a></button> 
+                            <button id="v27">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-3.png" alt=""></a></button> 
+                                <button id="v28">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-4.png" alt=""></a></button> 
+                                    <button id="v29">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-5.png" alt=""></a></button> 
+                                        <button id="v30">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-6.png" alt=""></a></button> 
+                                            <button id="v31">  <a href="#" class="sub-item"><img src="assets/bottoni/vestiti-7.png" alt=""></a></button> 
+                                            
+            </div>
+        </div><!-- vestiti-->
+        <div class="item">
+            <a class="sub-btn">
+                 <i > </i> <label for="#input-capelli">Capelli </label><i class="fas fa-angle-right dropdown"> </i></a>
+            <div class="sub-menu">
+       <button id="v32">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-0.png" alt=""></a></button> 
+          <button id="v33">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-1.png" alt=""></a></button> 
+            <button id="v34">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-2.png" alt=""></a></button> 
+                <button id="v35">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-3.png" alt=""></a></button> 
+                    <button id="v36"> <a href="#" class="sub-item"><img src="assets/bottoni/capelli-4.png" alt=""></a></button> 
+                        <button id="v37">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-5.png" alt=""></a></button> 
+                            <button id="v38">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-6.png" alt=""></a></button> 
+                                <button id="v39">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-7.png" alt=""></a></button> 
+                                    <button id="v40">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-8.png" alt=""></a></button> 
+                                        <button id="v41">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-9.png" alt=""></a></button> 
+                                            <button id="v42">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-10.png" alt=""></a></button> 
+                                                <button id="v43">  <a href="#" class="sub-item"><img src="assets/bottoni/capelli-11.png" alt=""></a></button> 
+                                        
+            </div>
+        </div><!-- capelli-->
+        <div class="item">
+            <a class="sub-btn">
+                <i > </i>   <label for="#input-altro">Acessori </label><i class="fas fa-angle-right dropdown"> </i></a>
+            <div class="sub-menu">
+                <button id="v44">  <a href="#" class="sub-item"></a></button> 
+                    <button id="v45">  <a href="#" class="sub-item"><img src="assets/bottoni/altro-1.png" alt=""></a></button> 
+                        <button id="v46">  <a href="#" class="sub-item"><img src="assets/bottoni/altro-2.png" alt=""></a></button> 
+                            <button id="v47">  <a href="#" class="sub-item"><img src="assets/bottoni/altro-3.png" alt=""></a></button> 
+                                <button id="v48">  <a href="#" class="sub-item"><img src="assets/bottoni/altro-4.png" alt=""></a></button> 
+                                  <button id="v49">  <a href="#" class="sub-item"><img src="assets/bottoni/altro-5.png" alt=""></a></button> 
+            </div>
+        </div><!--altro-->   
+        <div class="item">
+            <a class="sub-btn">
+                 <i class="sfondo"> </i>   <label> Sfondo  </label> 
+                 <i class="fas fa-angle-right dropdown"> </i></a>
+                 <div class="sub-menu"> <a href="#" class="sub-item2"></a>
+                 <div class="linea">   
+                    <label for="#input-sfondo" >Colore</label>
+                    <input type="range" value="1" step="1"  min="1" max="335" id="input-test"></a>
+                </div>
+    
+
+        </div><!-- sfondo-->
+    </div>
+</div><!-- Elementi Interfaccia -->
+
+
+<script type="text/javascript">
+
+window.addEventListener("load", function() {
+    let test = document.getElementById("input-test");
+
+    let svg = document.getElementById("svg_object")
+    let sfondo = svg.contentDocument.querySelector(".st0")
+
+    test.addEventListener("change", function(e) {
+        let value = e.target.value;
+        console.log(value)
+
+        let color = "hsl(" + value +", 70%, 85%)";
+        sfondo.setAttribute("fill",color);
+    })
+
+
+})
+
+</script><!-- Sfondo cambia colore -->
+
+<script type="text/javascript">
+   
+   // selezione un attributo tramite bottone e cambia l'immagine del volto
+   const src = document.getElementById("faccia");
+const b1 = document.querySelector("#v1")
+b1.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-01.svg)"
+b1.style.backgroundColor="lightcoral";
+b2.style.background="none";
+b3.style.background="none";
+b4.style.background="none";
+b5.style.background="none";
+b6.style.background="none";
+b7.style.background="none";
+})
+
+const b2 = document.querySelector("#v2")
+b2.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-02.svg)"
+b1.style.background="none";
+b2.style.backgroundColor="lightcoral";
+b3.style.background="none";
+b4.style.background="none";
+b5.style.background="none";
+b6.style.background="none";
+b7.style.background="none";
+})
+
+const b3 = document.querySelector("#v3")
+b3.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-03.svg)"
+b1.style.background="none";
+b2.style.background="none";
+b3.style.backgroundColor="lightcoral";
+b4.style.background="none";
+b5.style.background="none";
+b6.style.background="none";
+b7.style.background="none";
+})
+
+const b4 = document.querySelector("#v4")
+b4.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-04.svg)"
+b1.style.background="none";
+b2.style.background="none";
+b3.style.background="none";
+b4.style.backgroundColor="lightcoral";
+b5.style.background="none";
+b6.style.background="none";
+b7.style.background="none";
+})
+
+const b5 = document.querySelector("#v5")
+b5.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-05.svg)"
+b1.style.background="none";
+b2.style.background="none";
+b3.style.background="none";
+b4.style.background="none";
+b5.style.backgroundColor="lightcoral";
+b6.style.background="none";
+b7.style.background="none";
+})
+
+const b6 = document.querySelector("#v6")
+b6.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-06.svg)"
+b1.style.background="none";
+b2.style.background="none";
+b3.style.background="none";
+b4.style.background="none";
+b5.style.background="none";
+b6.style.backgroundColor="lightcoral";
+b7.style.background="none";
+})
+
+const b7 = document.querySelector("#v7")
+b7.addEventListener("click", function(e) {
+src.style.backgroundImage="url(assets/svg/faccia-07.svg)"
+b1.style.background="none";
+b2.style.background="none";
+b3.style.background="none";
+b4.style.background="none";
+b5.style.background="none";
+b6.style.background="none";
+b7.style.backgroundColor="lightcoral";
+
+})
+
+
+const svg = document.getElementById("occhi");
+const b8 = document.querySelector("#v8")
+b8.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-0.svg)"
+b8.style.backgroundColor="lightcoral";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b9 = document.querySelector("#v9")
+b9.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-1.svg)"
+b8.style.background="none";
+b9.style.backgroundColor="lightcoral";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b10 = document.querySelector("#v10")
+b10.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-2.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.backgroundColor="lightcoral";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b11 = document.querySelector("#v11")
+b11.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-3.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.backgroundColor="lightcoral";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b12 = document.querySelector("#v12")
+b12.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-4.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.backgroundColor="lightcoral";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b13 = document.querySelector("#v13")
+b13.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-5.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.backgroundColor="lightcoral";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b14 = document.querySelector("#v14")
+b14.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-6.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.backgroundColor="lightcoral";
+b15.style.background="none";
+b16.style.background="none";
+})
+
+const b15 = document.querySelector("#v15")
+b15.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-7.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.backgroundColor="lightcoral";
+b16.style.background="none";
+})
+
+const b16 = document.querySelector("#v16")
+b16.addEventListener("click", function(e) {
+svg.style.backgroundImage="url(assets/svg/occhi-8.svg)"
+b8.style.background="none";
+b9.style.background="none";
+b10.style.background="none";
+b11.style.background="none";
+b12.style.background="none";
+b13.style.background="none";
+b14.style.background="none";
+b15.style.background="none";
+b16.style.backgroundColor="lightcoral";
+})
+
+const fff = document.getElementById("bocca");
+const b17 = document.querySelector("#v17")
+b17.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-0.svg)"
+b17.style.backgroundColor="lightcoral";
+b18.style.background="none";
+b19.style.background="none";
+b20.style.background="none";
+b21.style.background="none";
+b22.style.background="none";
+b23.style.background="none";
+})
+
+const b18 = document.querySelector("#v18")
+b18.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-1.svg)"
+b17.style.background="none";
+b18.style.backgroundColor="lightcoral";
+b19.style.background="none";
+b20.style.background="none";
+b21.style.background="none";
+b22.style.background="none";
+b23.style.background="none";
+})
+
+const b19 = document.querySelector("#v19")
+b19.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-2.svg)"
+b17.style.background="none";
+b18.style.background="none";
+b19.style.backgroundColor="lightcoral";
+b20.style.background="none";
+b21.style.background="none";
+b22.style.background="none";
+b23.style.background="none";
+})
+
+const b20 = document.querySelector("#v20")
+b20.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-3.svg)"
+b17.style.background="none";
+b18.style.background="none";
+b19.style.background="none";
+b20.style.backgroundColor="lightcoral";
+b21.style.background="none";
+b22.style.background="none";
+b23.style.background="none";
+})
+
+const b21 = document.querySelector("#v21")
+b21.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-4.svg)"
+b17.style.background="none";
+b18.style.background="none";
+b19.style.background="none";
+b20.style.background="none";
+b21.style.backgroundColor="lightcoral";
+b22.style.background="none";
+b23.style.background="none";
+})
+
+const b22 = document.querySelector("#v22")
+b22.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-5.svg)"
+b17.style.background="none";
+b18.style.background="none";
+b19.style.background="none";
+b20.style.background="none";
+b21.style.background="none";
+b22.style.backgroundColor="lightcoral";
+b23.style.background="none";
+})
+
+const b23 = document.querySelector("#v23")
+b23.addEventListener("click", function(e) {
+fff.style.backgroundImage="url(assets/svg/bocca-6.svg)"
+b17.style.background="none";
+b18.style.background="none";
+b19.style.background="none";
+b20.style.background="none";
+b21.style.background="none";
+b22.style.background="none";
+b23.style.backgroundColor="lightcoral";
+})
+
+const bbb = document.getElementById("vestiti");
+const b24 = document.querySelector("#v24")
+b24.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-0.svg)"
+b24.style.backgroundColor="lightcoral";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b25 = document.querySelector("#v25")
+b25.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-1.svg)"
+b24.style.background="none";
+b25.style.backgroundColor="lightcoral";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b26 = document.querySelector("#v26")
+b26.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-2.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.backgroundColor="lightcoral";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b27 = document.querySelector("#v27")
+b27.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-3.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.backgroundColor="lightcoral";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b28 = document.querySelector("#v28")
+b28.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-4.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.backgroundColor="lightcoral";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b29 = document.querySelector("#v29")
+b29.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-5.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.backgroundColor="lightcoral";
+b30.style.background="none";
+b31.style.background="none";
+})
+
+const b30 = document.querySelector("#v30")
+b30.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-6.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.backgroundColor="lightcoral";
+b31.style.background="none";
+})
+
+const b31 = document.querySelector("#v31")
+b31.addEventListener("click", function(e) {
+bbb.style.backgroundImage="url(assets/svg/vestiti-7.svg)"
+b24.style.background="none";
+b25.style.background="none";
+b26.style.background="none";
+b27.style.background="none";
+b28.style.background="none";
+b29.style.background="none";
+b30.style.background="none";
+b31.style.backgroundColor="lightcoral";
+}) 
+
+const ggg = document.getElementById("capelli");
+const b32 = document.querySelector("#v32")
+b32.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-0.svg)"
+b32.style.backgroundColor="lightcoral";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})     
+
+const b33 = document.querySelector("#v33")
+b33.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-1.svg)"
+b32.style.background="none";
+b33.style.backgroundColor="lightcoral";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})     
+
+const b34 = document.querySelector("#v34")
+b34.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-2.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.backgroundColor="lightcoral";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b35 = document.querySelector("#v35")
+b35.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-3.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.backgroundColor="lightcoral";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b36 = document.querySelector("#v36")
+b36.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-4.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.backgroundColor="lightcoral";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b37 = document.querySelector("#v37")
+b37.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-5.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.backgroundColor="lightcoral";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b38 = document.querySelector("#v38")
+b38.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-6.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.backgroundColor="lightcoral";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b39 = document.querySelector("#v39")
+b39.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-7.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.backgroundColor="lightcoral";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b40 = document.querySelector("#v40")
+b40.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-8.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.backgroundColor="lightcoral";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b41 = document.querySelector("#v41")
+b41.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-9.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.backgroundColor="lightcoral";
+b42.style.background="none";
+b43.style.background="none";
+})  
+
+const b42 = document.querySelector("#v42")
+b42.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-10.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.backgroundColor="lightcoral";
+b42.style.backgroundColor="lightcoral";
+b43.style.background="none";
+})  
+const b43 = document.querySelector("#v43")
+b43.addEventListener("click", function(e) {
+ggg.style.backgroundImage="url(assets/svg/capelli-11.svg)"
+b32.style.background="none";
+b33.style.background="none";
+b34.style.background="none";
+b35.style.background="none";
+b36.style.background="none";
+b37.style.background="none";
+b38.style.background="none";
+b39.style.background="none";
+b40.style.background="none";
+b41.style.background="none";
+b42.style.background="none";
+b43.style.backgroundColor="lightcoral";
+})  
+
+const rrr = document.getElementById("altro");
+const b44 = document.querySelector("#v44") 
+b44.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-0.svg)"
+b44.style.backgroundColor="lightcoral";
+b45.style.background="none";
+b46.style.background="none";
+b47.style.background="none";
+b48.style.background="none";
+})   
+
+const b45 = document.querySelector("#v45")
+b45.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-1.svg)"
+b44.style.background="none";
+b45.style.backgroundColor="lightcoral";
+b46.style.background="none";
+b47.style.background="none";
+b48.style.background="none";
+})   
+
+const b46 = document.querySelector("#v46")
+b46.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-2.svg)"
+b44.style.background="none";
+b45.style.background="none";
+b46.style.backgroundColor="lightcoral";
+b47.style.background="none";
+b48.style.background="none";
+})   
+
+const b47 = document.querySelector("#v47")
+b47.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-3.svg)"
+b44.style.background="none";
+b45.style.background="none";
+b46.style.background="none";
+b47.style.backgroundColor="lightcoral";
+b48.style.background="none";
+})   
+
+const b48 = document.querySelector("#v48")
+b48.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-4.svg)"
+b44.style.background="none";
+b45.style.background="none";
+b46.style.background="none";
+b47.style.background="none";
+b48.style.backgroundColor="lightcoral";
+})   
+
+const b49 = document.querySelector("#v49")
+b49.addEventListener("click", function(e) {
+rrr.style.backgroundImage="url(assets/svg/altro-5.svg)"
+b44.style.background="none";
+b45.style.background="none";
+b46.style.background="none";
+b47.style.background="none";
+b48.style.background="none";
+b49.style.backgroundColor="lightcoral";
+})   
+</script><!-- Bottoni collegamenti -->
+           
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".sub-btn").click(function(){
+        $(this).next(".sub-menu").slideToggle();
+        $(this).find(".dropdown").toggleClass("rotate");
+    });
+});
+</script> <!-- Scorrimento su e giu interfaccia -->
+
+<script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+</body>
+</html>
